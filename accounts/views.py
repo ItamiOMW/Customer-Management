@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 
 from .forms import OrderForm
 from .models import *
+from .filters import OrderFilter
 
 
 # Create your views here.
@@ -36,7 +37,15 @@ def customer(request, primary_key):
     orders = customer_entity.order_set.all()
     orders_count = orders.count()
 
-    context = {'customer': customer_entity, 'orders': orders, 'orders_count': orders_count}
+    order_filter = OrderFilter(request.GET, queryset=orders)
+    orders = order_filter.qs
+
+    context = {
+        'customer': customer_entity,
+        'orders': orders,
+        'orders_count': orders_count,
+        'order_filter': order_filter
+    }
     return render(request, 'accounts/customer.html', context)
 
 
