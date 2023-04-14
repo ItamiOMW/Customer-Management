@@ -9,6 +9,8 @@ urlpatterns = [
 
     path('', views.home, name="home"),
     path('user/', views.user, name='user'),
+    path('settings/', views.account_settings, name='account'),
+
     path('products/', views.products, name="products"),
     path('customer/<str:primary_key>/', views.customer, name="customer"),
 
