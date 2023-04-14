@@ -21,14 +21,6 @@ def registerUser(request):
             user_entity = form.save()
             username = form.cleaned_data.get('username')
 
-            group = Group.objects.get(name='customer')
-            user_entity.groups.add(group)
-
-            Customer.objects.create(
-                user=user_entity,
-                name=username
-            )
-
             messages.success(request, f"User {username} registered successfully")
             return redirect('login')
 
